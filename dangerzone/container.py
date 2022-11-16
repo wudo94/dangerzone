@@ -207,7 +207,9 @@ def convert(
     os.makedirs(safe_dir, exist_ok=True)
 
     # Convert document to pixels
-    command = ["/usr/bin/python3", "/usr/local/bin/dangerzone.py", "document-to-pixels"]
+    # command = ["/usr/bin/python3", "/usr/local/bin/dangerzone.py", "document-to-pixels"]
+    command = ["runsc", "-rootless", "-network", "none", "-ignore-cgroups", "do",
+               "/usr/bin/python3", "/usr/local/bin/dangerzone.py", "document-to-pixels"]
     extra_args = [
         "-v",
         f"{input_filename}:/tmp/input_file",
@@ -221,7 +223,8 @@ def convert(
         # TODO: validate convert to pixels output
 
         # Convert pixels to safe PDF
-        command = ["/usr/bin/python3", "/usr/local/bin/dangerzone.py", "pixels-to-pdf"]
+        command = ["runsc", "-rootless", "-network", "none", "-ignore-cgroups", "do",
+                   "/usr/bin/python3", "/usr/local/bin/dangerzone.py", "pixels-to-pdf"]
         extra_args = [
             "-v",
             f"{pixel_dir}:/dangerzone",
