@@ -301,10 +301,19 @@ jobs:
 
   ci-debian-bullseye:
     machine:
-      image: ubuntu-2004:202111-01
+      image: ubuntu-2204:2023.04.2
     steps:
       - checkout
       - run: *install-podman
+      - run:
+          name: Configure Podman
+          command: |
+            mkdir -p ~/.config/containers
+            cat > ~/.config/containers/containers.conf \<<EOF
+            [engine]
+            cgroup_manager="cgroupfs"
+            events_logger="file"
+            EOF
 
       - run:
           name: Prepare cache directory
@@ -318,6 +327,20 @@ jobs:
           name: Prepare Dangerzone environment
           command: |
             ./dev_scripts/env.py --distro debian --version bullseye build-dev
+
+      - run:
+          name: Create Podman config for Bullseye
+          command: |
+            cp ~/.config/containers/containers.conf containers.conf
+
+            cat > bullseye_dockerfile \<<EOF
+            FROM dangerzone.rocks/build/debian:bullseye-backports
+            RUN mkdir -p /home/user/.config/containers
+            COPY containers.conf /home/user/.config/containers/
+            EOF
+
+            podman build -t dangerzone.rocks/build/debian:bullseye-backports \
+                -f bullseye_dockerfile .
 
       - run:
           name: Run CI tests
