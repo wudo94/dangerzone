@@ -17,7 +17,7 @@ from typing import Dict, Optional
 
 import magic
 
-from .common import DangerzoneConverter, run_command
+from .common import DangerzoneConverter
 
 
 class DocumentToPixels(DangerzoneConverter):
@@ -135,7 +135,7 @@ class DocumentToPixels(DangerzoneConverter):
                 "/tmp",
                 "/tmp/input_file",
             ]
-            await run_command(
+            await self.run_command(
                 args,
                 error_message="Conversion to PDF with LibreOffice failed",
                 timeout_message=(
@@ -153,7 +153,7 @@ class DocumentToPixels(DangerzoneConverter):
                 "/tmp/input_file",
                 "/tmp/input_file.pdf",
             ]
-            await run_command(
+            await self.run_command(
                 args,
                 error_message="Conversion to PDF with GraphicsMagick failed",
                 timeout_message=(
@@ -171,7 +171,7 @@ class DocumentToPixels(DangerzoneConverter):
 
         # Obtain number of pages
         self.update_progress("Calculating number of pages")
-        stdout, _ = await run_command(
+        stdout, _ = await self.run_command(
             ["pdfinfo", pdf_filename],
             error_message="PDF file is corrupted",
             timeout_message=(
@@ -257,7 +257,7 @@ class DocumentToPixels(DangerzoneConverter):
 
         page_base = "/tmp/page"
 
-        await run_command(
+        await self.run_command(
             [
                 "pdftoppm",
                 pdf_filename,

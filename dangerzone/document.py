@@ -45,6 +45,9 @@ class Document:
         self._output_filename: Optional[str] = None
         self._archive = False
         self._suffix = suffix
+        self.conversion_output = (
+            "[None] conversion log is only captured in developer mode"
+        )
 
         if input_filename:
             self.input_filename = input_filename
