@@ -12,8 +12,7 @@ import tempfile
 from typing import Callable, List, Optional, Tuple
 
 from ..document import Document
-from ..util import (get_resource_path, get_subprocess_startupinfo, get_tmp_dir,
-                    replace_control_chars)
+from ..util import get_resource_path, get_subprocess_startupinfo, get_tmp_dir
 from .base import MAX_CONVERSION_LOG_CHARS, IsolationProvider
 
 # Define startupinfo for subprocesses
@@ -272,7 +271,7 @@ class Container(IsolationProvider):
             log_path = pixel_dir / "captured_output.txt"
             with open(log_path, "r", encoding="ascii", errors="replace") as f:
                 untrusted_log = f.read(MAX_CONVERSION_LOG_CHARS)
-                document.conversion_output = replace_control_chars(untrusted_log)
+                document.conversion_output = self.sanitize_conversion_str(untrusted_log)
             text = f"Container output:\n{document.conversion_output}"
             self.print_progress(document, False, text, 50.0)
 
