@@ -9,6 +9,8 @@ from ..document import Document
 
 log = logging.getLogger(__name__)
 
+MAX_CONVERSION_LOG_CHARS = 150 * 50  # up to ~150 lines of 50 characters
+
 
 class IsolationProvider(ABC):
     """

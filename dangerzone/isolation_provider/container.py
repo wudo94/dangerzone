@@ -7,12 +7,13 @@ import pipes
 import platform
 import shutil
 import subprocess
+import sys
 import tempfile
 from typing import Callable, List, Optional, Tuple
 
 from ..document import Document
 from ..util import get_resource_path, get_subprocess_startupinfo, get_tmp_dir
-from .base import IsolationProvider
+from .base import MAX_CONVERSION_LOG_CHARS, IsolationProvider
 
 # Define startupinfo for subprocesses
 if platform.system() == "Windows":
@@ -265,6 +266,14 @@ class Container(IsolationProvider):
             f"ENABLE_TIMEOUTS={self.enable_timeouts}",
         ]
         ret = self.exec_container(document, command, extra_args)
+
+        if getattr(sys, "dangerzone_dev", False):
+            log_path = pixel_dir / "captured_output.txt"
+            with open(log_path, "r", encoding="ascii", errors="replace") as f:
+                document.conversion_output = f.read(MAX_CONVERSION_LOG_CHARS)
+            text = f"Container output:\n{document.conversion_output}"
+            self.print_progress(document, False, text, 50.0)
+
         if ret != 0:
             log.error("documents-to-pixels failed")
         else:
