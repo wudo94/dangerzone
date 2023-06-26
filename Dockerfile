@@ -1,6 +1,7 @@
 FROM alpine:latest
 
 ARG TESSDATA_CHECKSUM=990fffb9b7a9b52dc9a2d053a9ef6852ca2b72bd8dfb22988b0b990a700fd3c7
+ARG H2ORESTART_CHECKSUM=030563b51ac39f75ad7f15b2b70a47ed1a1e12101456aee5b078403e38d4c350
 
 # Install dependencies
 RUN apk --no-cache -U upgrade && \
@@ -13,7 +14,8 @@ RUN apk --no-cache -U upgrade && \
     poppler-data \
     python3 \
     py3-magic \
-    tesseract-ocr
+    tesseract-ocr \
+    openjdk17-jre-headless
 
 # Download the trained models from the latest GitHub release of Tesseract, and
 # store them under /usr/share/tessdata. This is basically what distro packages
@@ -31,6 +33,16 @@ RUN mkdir tessdata && cd tessdata \
     && tar -xzvf tessdata-$TESSDATA_VERSION.tar.gz -C . \
     && find . -name '*.traineddata' -maxdepth 2 -exec cp {} /usr/share/tessdata \; \
     && cd .. && rm -r tessdata
+
+RUN mkdir h2orestart && cd h2orestart \
+    && H2ORESTART_FILENAME=h2orestart.oxt \
+    && H2ORESTART_VERSION="v0.5.6" \
+    && wget https://github.com/ebandal/H2Orestart/releases/download/$H2ORESTART_VERSION/$H2ORESTART_FILENAME \
+    && echo "$H2ORESTART_CHECKSUM  $H2ORESTART_FILENAME" | sha256sum -c \
+    && _DESTDIR="/usr/lib/libreoffice/share/extensions/h2orestart/" \
+    && install -dm755 $_DESTDIR \
+    && unzip $H2ORESTART_FILENAME -d $_DESTDIR \
+    && cd .. && rm -r h2orestart
 
 ENV PYTHONPATH=/opt/dangerzone
 
