@@ -80,24 +80,24 @@ class DocumentToPixels(DangerzoneConverter):
             # .hwp
             "application/vnd.hancom.hwp": {
                 "type": "libreoffice",
-                "libreoffice_ext": "h2orestart.oxt"
+                "libreoffice_ext": "h2orestart.oxt",
             },
             "application/haansofthwp": {
                 "type": "libreoffice",
-                "libreoffice_ext": "h2orestart.oxt"
+                "libreoffice_ext": "h2orestart.oxt",
             },
             "application/x-hwp": {
                 "type": "libreoffice",
-                "libreoffice_ext": "h2orestart.oxt"
+                "libreoffice_ext": "h2orestart.oxt",
             },
             # .hwpx
             "application/vnd.hancom.hwpx": {
                 "type": "libreoffice",
-                "libreoffice_ext": "h2orestart.oxt"
+                "libreoffice_ext": "h2orestart.oxt",
             },
             "application/haansofthwpx": {
                 "type": "libreoffice",
-                "libreoffice_ext": "h2orestart.oxt"
+                "libreoffice_ext": "h2orestart.oxt",
             },
             # At least .odt, .docx, .odg, .odp, .ods, and .pptx
             "application/zip": {
@@ -314,17 +314,15 @@ class DocumentToPixels(DangerzoneConverter):
             "unzip",
             "-d",
             f"/usr/lib/libreoffice/share/extensions/{libreoffice_ext}/",
-            f"/libreoffice_ext/{libreoffice_ext}"
+            f"/libreoffice_ext/{libreoffice_ext}",
         ]
         await run_command(
             unzip_args,
             error_message="LibreOffice extension installation failed (unzipping)",
-            timeout_message=(
-                "unzipping LibreOffice extension timed out"
-                f"5 seconds"
-            ),
+            timeout_message="unzipping LibreOffice extension timed out 5 seconds",
             timeout=5,
         )
+
 
 async def main() -> int:
     converter = DocumentToPixels()
