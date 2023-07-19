@@ -29,7 +29,7 @@ class DangerzoneConverter:
     def __init__(self, progress_callback: Optional[Callable] = None) -> None:
         self.percentage: float = 0.0
         self.progress_callback = progress_callback
-        self.captured_output: str = ""
+        self.captured_output: bytes = b""
 
     async def read_stream(
         self, sr: asyncio.StreamReader, callback: Optional[Callable] = None
@@ -48,10 +48,7 @@ class DangerzoneConverter:
             line = await sr.readline()
             if sr.at_eof():
                 break
-            if line.decode().rstrip() != "":
-                self.captured_output += (
-                    line.decode(encoding="ascii", errors="replace").rstrip() + "\n"
-                )
+            self.captured_output += line
             if callback is not None:
                 callback(line)
             buf += line

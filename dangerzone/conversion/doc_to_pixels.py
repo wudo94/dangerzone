@@ -285,12 +285,7 @@ class DocumentToPixels(DangerzoneConverter):
 
         if not running_on_qubes():
             # Write debug information (containers version)
-            with open(
-                "/tmp/dangerzone/captured_output.txt",
-                "w",
-                encoding="ascii",
-                errors="replace",
-            ) as container_log:
+            with open("/tmp/dangerzone/captured_output.txt", "wb") as container_log:
                 container_log.write(self.captured_output)
 
 

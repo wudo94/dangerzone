@@ -85,7 +85,7 @@ async def main() -> None:
             await write_bytes(rgb_data)
 
     # Write debug information
-    await write_text(converter.captured_output, file=sys.stderr)
+    await write_bytes(converter.captured_output, file=sys.stderr)
 
 
 if __name__ == "__main__":
