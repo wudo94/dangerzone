@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 ARG TESSDATA_CHECKSUM=990fffb9b7a9b52dc9a2d053a9ef6852ca2b72bd8dfb22988b0b990a700fd3c7
-ARG H2ORESTART_CHECKSUM=030563b51ac39f75ad7f15b2b70a47ed1a1e12101456aee5b078403e38d4c350
+ARG H2ORESTART_CHECKSUM=5db816a1e57b510456633f55e693cb5ef3675ef8b35df4f31c90ab9d4c66071a
 
 # Install dependencies
 RUN apk --no-cache -U upgrade && \
@@ -36,7 +36,7 @@ RUN mkdir tessdata && cd tessdata \
 
 RUN mkdir /libreoffice_ext && cd libreoffice_ext \
     && H2ORESTART_FILENAME=h2orestart.oxt \
-    && H2ORESTART_VERSION="v0.5.6" \
+    && H2ORESTART_VERSION="v0.5.7" \
     && wget https://github.com/ebandal/H2Orestart/releases/download/$H2ORESTART_VERSION/$H2ORESTART_FILENAME \
     && echo "$H2ORESTART_CHECKSUM  $H2ORESTART_FILENAME" | sha256sum -c \
     && install -dm777 "/usr/lib/libreoffice/share/extensions/"
