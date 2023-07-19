@@ -139,7 +139,7 @@ class Qubes(IsolationProvider):
 
         if getattr(sys, "dangerzone_dev", False):
             untrusted_log = read_debug_text(p)
-            document.conversion_output = replace_control_chars(untrusted_log)
+            document.conversion_output = self.sanitize_conversion_str(untrusted_log)
             text = f"Container output:\n{document.conversion_output}"
             self.print_progress(document, False, text, percentage)
 
