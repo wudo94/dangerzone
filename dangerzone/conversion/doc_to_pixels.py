@@ -78,10 +78,6 @@ class DocumentToPixels(DangerzoneConverter):
                 "type": "libreoffice",
             },
             # .hwp
-            "application/vnd.hancom.hwp": {
-                "type": "libreoffice",
-                "libreoffice_ext": "h2orestart.oxt",
-            },
             "application/haansofthwp": {
                 "type": "libreoffice",
                 "libreoffice_ext": "h2orestart.oxt",
@@ -91,11 +87,7 @@ class DocumentToPixels(DangerzoneConverter):
                 "libreoffice_ext": "h2orestart.oxt",
             },
             # .hwpx
-            "application/vnd.hancom.hwpx": {
-                "type": "libreoffice",
-                "libreoffice_ext": "h2orestart.oxt",
-            },
-            "application/haansofthwpx": {
+            "application/hwp+zip": {
                 "type": "libreoffice",
                 "libreoffice_ext": "h2orestart.oxt",
             },
@@ -132,6 +124,13 @@ class DocumentToPixels(DangerzoneConverter):
         # Validate MIME type
         if mime_type not in conversions:
             raise ValueError("The document format is not supported")
+
+        # Temparary fix for the HWPX format
+        if mime_type == "application/zip":
+            file_type = magic.from_file("/tmp/input_file")
+            hwpx_file_type = 'Zip data (MIME type "application/hwp+zip"?)'
+            if file_type == hwpx_file_type:
+                mime_type = "application/hwp+zip"
 
         # Get file size (in MiB)
         size = os.path.getsize("/tmp/input_file") / 1024**2
