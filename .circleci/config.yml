@@ -152,7 +152,7 @@ jobs:
       - run:
           name: run automated tests
           command: |
-            poetry run make test
+            QT_QPA_PLATFORM=offscreen poetry run make test
 
   ci-ubuntu-lunar:
     machine:
@@ -179,7 +179,7 @@ jobs:
           name: Run CI tests
           command: |
             ./dev_scripts/env.py --distro ubuntu --version 23.04 run --dev \
-                bash -c 'cd dangerzone; poetry run make test'
+                bash -c 'cd dangerzone; QT_QPA_PLATFORM=offscreen poetry run make test'
 
   ci-ubuntu-kinetic:
     machine:
@@ -206,7 +206,7 @@ jobs:
           name: Run CI tests
           command: |
             ./dev_scripts/env.py --distro ubuntu --version 22.10 run --dev \
-                bash -c 'cd dangerzone; poetry run make test'
+                bash -c 'cd dangerzone; QT_QPA_PLATFORM=offscreen poetry run make test'
 
   ci-ubuntu-jammy:
     machine:
@@ -233,7 +233,7 @@ jobs:
           name: Run CI tests
           command: |
             ./dev_scripts/env.py --distro ubuntu --version 22.04 run --dev \
-                bash -c 'cd dangerzone; poetry run make test'
+                bash -c 'cd dangerzone; QT_QPA_PLATFORM=offscreen poetry run make test'
 
   ci-ubuntu-focal:
     machine:
@@ -260,7 +260,7 @@ jobs:
           name: Run CI tests
           command: |
             ./dev_scripts/env.py --distro ubuntu --version 20.04 run --dev \
-                bash -c 'cd dangerzone; poetry run make test'
+                bash -c 'cd dangerzone; QT_QPA_PLATFORM=offscreen poetry run make test'
 
   ci-fedora-38:
     machine:
@@ -287,7 +287,7 @@ jobs:
           name: Run CI tests
           command: |
             ./dev_scripts/env.py --distro fedora --version 38 run --dev \
-                bash -c 'cd dangerzone; poetry run make test'
+                bash -c 'cd dangerzone; QT_QPA_PLATFORM=offscreen poetry run make test'
 
   ci-fedora-37:
     machine:
@@ -314,7 +314,7 @@ jobs:
           name: Run CI tests
           command: |
             ./dev_scripts/env.py --distro fedora --version 37 run --dev \
-                bash -c 'cd dangerzone; poetry run make test'
+                bash -c 'cd dangerzone; QT_QPA_PLATFORM=offscreen poetry run make test'
 
   ci-debian-trixie:
     machine:
@@ -341,7 +341,7 @@ jobs:
           name: Run CI tests
           command: |
             ./dev_scripts/env.py --distro debian --version trixie run --dev \
-                bash -c 'cd dangerzone; poetry run make test'
+                bash -c 'cd dangerzone; QT_QPA_PLATFORM=offscreen poetry run make test'
 
   ci-debian-bookworm:
     machine:
@@ -368,7 +368,7 @@ jobs:
           name: Run CI tests
           command: |
             ./dev_scripts/env.py --distro debian --version bookworm run --dev \
-                bash -c 'cd dangerzone; poetry run make test'
+                bash -c 'cd dangerzone; QT_QPA_PLATFORM=offscreen poetry run make test'
 
   # NOTE: Making CI tests work in Debian Bullseye requires some tip-toeing
   # around certain Podman issues, as you'll see below. Read the following for
@@ -428,7 +428,7 @@ jobs:
           name: Run CI tests
           command: |
             ./dev_scripts/env.py --distro debian --version bullseye run --dev \
-                bash -c 'cd dangerzone; poetry run make test'
+                bash -c 'cd dangerzone; QT_QPA_PLATFORM=offscreen poetry run make test'
 
   build-ubuntu-lunar:
     docker:
