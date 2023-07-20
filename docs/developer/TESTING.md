@@ -17,7 +17,7 @@ poetry run make test
 We also have a larger set of tests that can take a day or more to run, where we evaluate the completeness of Dangerzone conversions.
 
 ```bash
-poetry run make large-test
+poetry run make test-large
 ```
 
 ### Test report generation
