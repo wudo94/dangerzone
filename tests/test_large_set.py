@@ -70,15 +70,6 @@ class TestLargeSet():
         from strip_ansi import strip_ansi
         print(strip_ansi(out.decode()))
 
-    def test_metadata(  # type: ignore[no-untyped-def]
-        self, record_testsuite_property
-    ) -> None:
-        # Add metadata about the test run to the test suite
-        record_testsuite_property(
-            "GIT_DESC",
-            subprocess.check_output(["git", "describe"]).decode()[:-1],
-        )
-
     @for_each_10K_doc
     def test_10K_docs(self, doc: Path, tmp_path: Path) -> None:
         self.run_doc_test(doc, tmp_path)
