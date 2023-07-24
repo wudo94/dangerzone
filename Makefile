@@ -23,7 +23,8 @@ MYPY_ARGS := --ignore-missing-imports \
 			 --disallow-untyped-defs \
 			 --show-error-codes \
 			 --warn-unreachable \
-			 --warn-unused-ignores
+			 --warn-unused-ignores \
+			 --exclude $(LARGE_TEST_REPO_DIR)/*.py
 
 mypy-host:
 	mypy $(MYPY_ARGS) dangerzone
