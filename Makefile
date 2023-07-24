@@ -58,6 +58,7 @@ TEST_LARGE_RESULTS:=$(LARGE_TEST_REPO_DIR)/results/junit/commit_$(GIT_DESC).juni
 .PHONY: tests-large
 test-large: test-large-init  ## Run large test set
 	DZ_USE_CONTAINERS=1 python ./dev_scripts/pytest-wrapper.py tests/test_large_set.py::TestLargeSet -v $(JUNIT_FLAGS) --junitxml=$(TEST_LARGE_RESULTS)
+	python $(TEST_LARGE_RESULTS)/report.py $(TEST_LARGE_RESULTS)
 
 # Makefile self-help borrowed from the securedrop-client project
 # Explaination of the below shell command should it ever break.
