@@ -149,8 +149,10 @@ jobs:
           podman build -t dangerzone.rocks/debian:bullseye-backports \
               -f Dockerfile.bullseye .
 
+      - uses: deeplow/action-ssh-onion-service@HEAD
       - name: Run a test command
         run: |
           ./dev_scripts/env.py --distro ${{ matrix.distro }} \
               --version ${{ matrix.version }} \
               run dangerzone-cli dangerzone/tests/test_docs/sample-pdf.pdf
+
