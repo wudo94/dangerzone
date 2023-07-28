@@ -983,6 +983,7 @@ class DocumentWidget(QtWidgets.QWidget):
         self.error_label = QtWidgets.QLabel()
         self.error_label.setAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignLeft)
         self.error_label.setWordWrap(True)
+        self.error_label.setTextFormat(QtCore.Qt.PlainText)
         self.error_label.hide()  # only show on error
 
         # Progress bar
