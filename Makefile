@@ -37,7 +37,8 @@ lint-apply: lint-black-apply lint-isort-apply ## apply all the linter's suggesti
 
 .PHONY: test
 test:
-	pytest -v --cov --ignore dev_scripts
+	pytest --co -q tests/gui | grep -v ' collected' | xargs -n 1 pytest -v
+	pytest -v --cov --ignore dev_scripts --ignore tests/gui
 
 
 # Makefile self-help borrowed from the securedrop-client project
