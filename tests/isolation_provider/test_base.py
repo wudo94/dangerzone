@@ -16,19 +16,19 @@
 #     ],
 #     ids=["Container", "Qubes"],
 # )
-# def test_print_progress(
-#     # provider: base.IsolationProvider,
-#     uncommon_text: str,
-#     sanitized_text: str,
-#     mocker: MockerFixture,
-# ) -> None:
-#     """Test that the print_progress() method of our isolation providers sanitizes text.
+def test_print_progress(
+    # provider: base.IsolationProvider,
+    # uncommon_text: str,
+    # sanitized_text: str,
+    # mocker: MockerFixture,
+) -> None:
+    """Test that the print_progress() method of our isolation providers sanitizes text.
 
-#     Iterate our isolation providers and make sure that their print_progress() methods
-#     sanitizes the provided text, before passing it to the logging functions and other
-#     callbacks.
-#     """
-#     return
+    Iterate our isolation providers and make sure that their print_progress() methods
+    sanitizes the provided text, before passing it to the logging functions and other
+    callbacks.
+    """
+    return
 #     d = Document()
 #     provider.progress_callback = mocker.MagicMock()
 #     log_info_spy = mocker.spy(base.log, "info")
