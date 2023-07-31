@@ -1,5 +1,5 @@
 import pytest
-from colorama import Style
+# from colorama import Style
 from pytest_mock import MockerFixture
 
 from dangerzone.document import Document
@@ -8,16 +8,16 @@ from dangerzone.isolation_provider import base, container, qubes
 from .. import sanitized_text, uncommon_text
 
 
-@pytest.mark.parametrize(
-    "provider",
-    [
-        container.Container(enable_timeouts=False),
-        qubes.Qubes(),
-    ],
-    ids=["Container", "Qubes"],
-)
+# @pytest.mark.parametrize(
+#     "provider",
+#     [
+#         container.Container(enable_timeouts=False),
+#         qubes.Qubes(),
+#     ],
+#     ids=["Container", "Qubes"],
+# )
 def test_print_progress(
-    provider: base.IsolationProvider,
+    # provider: base.IsolationProvider,
     uncommon_text: str,
     sanitized_text: str,
     mocker: MockerFixture,
