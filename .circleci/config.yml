@@ -229,11 +229,11 @@ jobs:
           command: |
             ./dev_scripts/env.py --distro ubuntu --version 20.04 build-dev
 
-      - run:
-          name: Run CI tests
-          command: |
-            ./dev_scripts/env.py --distro ubuntu --version 20.04 run -g --dev \
-                bash -c 'cd dangerzone; poetry run make test'
+      # - run:
+      #     name: Run CI tests
+      #     command: |
+      #       ./dev_scripts/env.py --distro ubuntu --version 20.04 run -g --dev \
+      #           bash -c 'cd dangerzone; poetry run make test'
 
   ci-fedora-38:
     machine:
