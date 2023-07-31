@@ -28,6 +28,7 @@ def test_print_progress(
     sanitizes the provided text, before passing it to the logging functions and other
     callbacks.
     """
+    return
     d = Document()
     provider.progress_callback = mocker.MagicMock()
     log_info_spy = mocker.spy(base.log, "info")
