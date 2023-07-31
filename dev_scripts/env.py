@@ -141,6 +141,10 @@ USER user
 WORKDIR /home/user
 VOLUME /home/user/dangerzone
 
+# Force Podman to use a specific configuration.
+RUN mkdir -p /home/user/.config/containers
+COPY storage.conf /home/user/.config/containers
+
 # Install Poetry under ~/.local/bin.
 # See https://github.com/freedomofpress/dangerzone/issues/351
 # FIXME: pipx install poetry does not work for Ubuntu Focal.
@@ -188,6 +192,11 @@ RUN echo user:2000:2000 > /etc/subgid
 
 USER user
 WORKDIR /home/user
+
+########################################
+# Force Podman to use the "overlay" graph driver.
+RUN mkdir -p /home/user/.config/containers
+COPY storage.conf /home/user/.config/containers
 """
 
 
@@ -431,6 +440,7 @@ class Env:
         # Populate the build context.
         shutil.copy(git_root() / "pyproject.toml", build_dir)
         shutil.copy(git_root() / "poetry.lock", build_dir)
+        shutil.copy(git_root() / "dev_scripts" / "storage.conf", build_dir)
         with open(build_dir / "Dockerfile", mode="w") as f:
             f.write(dockerfile)
 
@@ -477,6 +487,7 @@ class Env:
 
         # Populate the build context.
         shutil.copy(package_src, package_dst)
+        shutil.copy(git_root() / "dev_scripts" / "storage.conf", build_dir)
         with open(build_dir / "Dockerfile", mode="w") as f:
             f.write(dockerfile)
 
